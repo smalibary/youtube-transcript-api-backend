@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
 from youtube_transcript_api import YouTubeTranscriptApi, TranscriptsDisabled, VideoUnavailable
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/getTranscript", methods=["GET"])
 def get_transcript():
@@ -10,9 +12,7 @@ def get_transcript():
         return jsonify({"error": "Missing videoID parameter"}), 400
 
     try:
-        # Fetch transcript
         transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=["en"])
-        # Combine transcript into a single string
         transcript_text = " ".join([entry["text"] for entry in transcript])
         return jsonify({"transcript": transcript_text})
     except TranscriptsDisabled:
