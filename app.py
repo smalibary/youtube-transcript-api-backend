@@ -12,7 +12,7 @@ def get_transcript():
         if not video_id:
             return jsonify({"error": "Missing video_id"}), 400
         
-        # Get the transcript using youtube-transcript-api
+        # Get the transcript
         transcript = YouTubeTranscriptApi.get_transcript(video_id)
         
         # Combine transcript into a single string
