@@ -22,3 +22,7 @@ def test_transcript():
 
 if __name__ == "__main__":
     app.run(debug=True)
+    
+@app.route("/", methods=["GET"])
+def home():
+    return "Backend is running!", 200
