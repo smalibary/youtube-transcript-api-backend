@@ -14,14 +14,16 @@ def get_transcript():
         
         # Get the transcript
         transcript = YouTubeTranscriptApi.get_transcript(video_id)
-        
-        # Combine transcript into a single string
         transcript_text = " ".join([item["text"] for item in transcript])
         return jsonify({"transcript": transcript_text}), 200
     except TranscriptNotFound:
         return jsonify({"error": "Transcript not found for this video."}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route("/", methods=["GET"])
+def home():
+    return "Backend is running!", 200
 
 if __name__ == "__main__":
     app.run(debug=True)
